@@ -173,7 +173,7 @@ alpha = 0.05      # learning rate
 batch_size = 100    # batch size
 MaxIter = 50        # Maximum iteration
 decay = 0.          # weight decay
-maxAlpha = 1
+maxDecay = 0.99
 
 epoch_best = 0
 acc_best = 0
@@ -183,28 +183,28 @@ best_loss = []
 best_val = []
 W_best = None
 
-alphaArray = []
+decayArray = []
 accuracyArray = []
 
 totalLossArray = []
 totalValArray = []
 
-for i in np.arange(alpha, maxAlpha, 0.05):
-    print("Current Alpha: ", i)
-    alpha = i
+for i in np.arange(0, maxDecay, 0.01):
+    print("Current Decay: ", i)
+    decay = i
     lossArray = []
     valArray = []
     epoch, acc, W = train(X_train, t_train, X_val, t_val)
 
     if acc > acc_best:
         acc_best = acc
-        best_alpha = i
+        best_decay = i
         epoch_best = epoch
         W_best = W
         best_loss = lossArray
         best_val = valArray
 
-    alphaArray.append(i)
+    decayArray.append(i)
     accuracyArray.append(acc)
     totalLossArray.append(lossArray)
     totalValArray.append(valArray)
@@ -217,7 +217,7 @@ _, _, _, acc_test_best = predict(X_test, W_best, t_test)
 # print('At epoch', epoch_best, 'val: ', acc_best,
 #       'test:', acc_test)
 
-print("Best alpha: ", best_alpha)
+print("Best decay: ", best_decay)
 print("Best validation accuracy: ", acc_best)
 print("Best test accuracy: ", acc_test_best)
 print("Best loss: ", best_loss)
@@ -226,7 +226,7 @@ print(accuracyArray)
 
 
 x_axis1 = np.arange(0, MaxIter, 1)
-x_axis2 = np.arange(0.05, maxAlpha, 0.05)
+x_axis2 = np.arange(0, maxDecay, 0.01)
 y_axis1 = np.arange(0, 1, 0.01)
 y_axis2 = np.arange(0, 1, 0.01)
 
@@ -248,12 +248,12 @@ plt.ylabel("Accuracy")
 plt.subplot(2, 2, 2)
 plt.plot(x_axis2, accuracyArray)
 plt.grid()
-plt.title("Accuracy Over Alpha Values")
+plt.title("Accuracy Over Decay Values")
 # plt.ylim(0, 1)
 # plt.title("Risk Over Epochs")
 # plt.ylabel("Accuracy")
-plt.xlabel("Alpha")
+plt.xlabel("Decay")
 
-plt.savefig('C2Q2')
+plt.savefig('C2Q2Decay')
 
 plt.show()

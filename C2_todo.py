@@ -172,7 +172,7 @@ N_class = 10
 alpha = 0.1      # learning rate
 batch_size = 100    # batch size
 MaxIter = 50        # Maximum iteration
-decay = 0.          # weight decay
+decay = 0          # weight decay
 
 lossArray = []
 valArray = []
