@@ -171,7 +171,7 @@ N_class = 10
 
 alpha = 0.05      # learning rate
 batch_size = 100    # batch size
-MaxIter = 50        # Maximum iteration
+MaxIter = 100        # Maximum iteration
 decay = 0.          # weight decay
 maxDecay = 0.99
 
